@@ -43,10 +43,10 @@ def draw_lanes(img,lines, color=[255, 0, 0], thickness=2):
             xDiff=x1-x2
             slope=yDiff/xDiff
             yIntecept=y2-(slope*x2)
-            if slope>0.3 and x1>500:
+            if slope>0.3 and x1>int(0.4*img.shape[1]):
                 rightSlope.append(slope)
                 rightIntercept.append(yIntecept)
-            elif slope<-0.3 and x1<600:
+            elif slope<-0.3 and x1<(0.6*img.shape[1]):
                 leftSlope.append(slope)
                 leftIntercept.append(yIntecept)
     if len(leftSlope)==0: return
@@ -70,7 +70,7 @@ def detect_lane(img):
     draw_lanes(img, lines)
     return img
 
-output = '../resources/video_1_sol.mp4'
-clip = VideoFileClip("../resources/video_1.mp4")
+output = '../resources/video_3_sol.mp4'
+clip = VideoFileClip("../resources/video_3.mp4")
 out_clip = clip.fl_image(detect_lane)
 out_clip.write_videofile(output, audio=False)
